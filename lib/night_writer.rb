@@ -1,7 +1,7 @@
 class NightWriter
 
     def initialize(input_text, output_text)
-      puts "Created #{output_text} containing 256 characters"
+      puts "Created #{output_text} containing #{input_text.length} characters"
     end #initialize
 
 end #NightWriter
