@@ -13,8 +13,12 @@ class SearchableTest < Minitest::Test
   end
 
   def test_find_matching_letter
-    assert_equal 'h', @nightwriter.find_matching_letter_braille_pair("h").letter
-    assert_equal '0.\n00\n..', @nightwriter.find_matching_letter_braille_pair("h").braille
+    assert_equal 'h', @nightwriter.find_matching_letter_braille_pair('h').letter
+    assert_equal '0.\n00\n..', @nightwriter.find_matching_letter_braille_pair('h').braille
+  end
+
+  def test_find_reverse_letter_braille_pair
+    assert_equal 'h', @nightwriter.find_reverse_letter_braille_pair('0.\n00\n..').letter
   end
 
 end
