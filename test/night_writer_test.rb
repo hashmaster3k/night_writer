@@ -4,22 +4,28 @@ require 'minitest/pride'
 
 class NightWriterTest < Minitest::Test
 
+  def setup
+    input_file  = 'messages.txt'
+    output_file = 'braille.txt'
+
+    @nightwriter = NightWriter.new(input_file, output_file)
+
+  end
+
   def test_it_exists
-    input_file  = './messages.txt'
-    output_file = './braille.txt'
-
-    nightwriter = NightWriter.new(input_file, output_file)
-
-    assert_instance_of NightWriter, nightwriter
+    assert_instance_of NightWriter, @nightwriter
   end
 
   def test_has_readable_attributes
-    input_file  = './messages.txt'
-    output_file = './braille.txt'
-
-    nightwriter = NightWriter.new(input_file, output_file)
-
-    assert_equal input_file, nightwriter.input_file
-    assert_equal output_file, nightwriter.output_file
+    assert_equal "./messages.txt", @nightwriter.input_file_path
+    assert_equal "./braille.txt",  @nightwriter.output_file_path
   end
+
+  def test_copy_text_and_write
+    expected = File.read("./messages.txt")
+    @nightwriter.copy_text_and_write
+
+    assert_equal expected, File.read("./braille.txt")
+  end
+
 end
