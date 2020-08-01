@@ -3,7 +3,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 
 
-class SearchableTest < Minitest::Test
+class HelpableTest < Minitest::Test
 
   def setup
     input_file  = 'message.txt'
