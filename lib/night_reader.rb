@@ -22,10 +22,33 @@ class NightReader
   end
 
   def read_file
-    File.read(input_file_path).chomp.split("")
+    File.read(input_file_path).split("\n")
   end
 
+  def decode_from_braille
+    row_1 = read_file[0]
+    row_2 = read_file[1]
+    row_3 = read_file[2]
 
+    num = row_1.length / 2
+    final = ""
+    num.times do
+      message = ""
+      message.concat row_1[0] + row_1[1]
+      row_1.slice!(0..1)
+      message.concat row_2[0] + row_2[1]
+      row_2.slice!(0..1)
+      message.concat row_3[0] + row_3[1]
+      row_3.slice!(0..1)
+      letter = find_reverse_letter_braille_pair(message).letter
+      final.concat(letter)
+    end
+    write_to_file(final)
+  end
+
+  def write_to_file(text)
+    File.open(output_file_path, 'a') {|file| file.puts text}
+  end
 
 end
 

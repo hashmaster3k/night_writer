@@ -25,9 +25,20 @@ class NightReaderTest < Minitest::Test
   end
 
   def test_read_file
-    expected = File.read('./texts/braille.txt').chomp.length
+    File.open('./texts/braille.txt', 'w') {|f| f.write "testing\n123"}
+    assert_equal ['testing','123'], @nightreader.read_file
+  end
 
-    assert_equal expected, @nightreader.read_file.length
+  def test_decode_from_braille
+    File.delete('./texts/original_message.txt')
+    File.new('./texts/original_message.txt', 'w')
+
+    hello_world = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0..."
+
+    File.open('./texts/braille.txt', 'w') {|f| f.write hello_world}
+    @nightreader.decode_from_braille
+    actual = File.read('./texts/original_message.txt').chomp
+    assert_equal "hello world", actual
   end
 
 end
