@@ -29,6 +29,21 @@ class NightReaderTest < Minitest::Test
     assert_equal ['testing','123'], @nightreader.read_file
   end
 
+  def test_write_to_file
+    File.delete('./texts/original_message.txt')
+    File.new('./texts/original_message.txt', 'w')
+
+    before = File.read('./texts/original_message.txt')
+    
+    assert_equal 0, before.length
+
+    @nightreader.write_to_file('test')
+
+    after = File.read('./texts/original_message.txt')
+
+    assert_equal 5, after.length
+  end
+
   def test_decode_from_braille
     File.delete('./texts/original_message.txt')
     File.new('./texts/original_message.txt', 'w')
