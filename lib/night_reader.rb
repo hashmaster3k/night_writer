@@ -20,7 +20,14 @@ class NightReader
   def output_file_path
     "./texts/#{@output_file}"
   end
+
+  def read_file
+    File.read(input_file_path).chomp.split("")
+  end
+
+
+
 end
 
-NightReader.new(ARGV[0], ARGV[1])
+#NightReader.new(ARGV[0], ARGV[1])
 #ruby ./lib/night_reader.rb braille.txt original_message.txt
