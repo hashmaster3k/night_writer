@@ -10,7 +10,7 @@ class NightReader
     @input_file = input_file
     @output_file = output_file
     @dictionary = Dictionary.from_csv('./data/braille_dictionary.csv')
-    #decode_from_braille
+    decode_from_braille
   end #initialize
 
   def input_file_path
@@ -23,6 +23,10 @@ class NightReader
 
   def read_file
     File.read(input_file_path).split("\n")
+  end
+
+  def write_to_file(text)
+    File.open(output_file_path, 'a') {|file| file.puts text}
   end
 
   def decode_from_braille
@@ -44,13 +48,15 @@ class NightReader
       final.concat(letter)
     end
     write_to_file(final)
+    puts created_message
   end
 
-  def write_to_file(text)
-    File.open(output_file_path, 'a') {|file| file.puts text}
-  end
+  def created_message
+    content = File.read(output_file_path)
+    "Created #{output_file} containing #{content.length} characters"
+  end #created_message
 
 end
 
-#NightReader.new(ARGV[0], ARGV[1])
+NightReader.new(ARGV[0], ARGV[1])
 #ruby ./lib/night_reader.rb braille.txt original_message.txt
