@@ -21,6 +21,22 @@ class HelpableTest < Minitest::Test
     assert_equal './texts/braille.txt', @nightwriter.output_file_path
   end
 
+  def test_read_file
+    File.delete('./texts/message.txt')
+    File.open('./texts/message.txt', 'w') {|f| f.write "hello world"}
+
+    assert_equal "hello world", @nightwriter.read_file("./texts/message.txt")
+  end
+
+  def test_write_to_file
+    File.delete('./texts/message.txt')
+    File.new('./texts/message.txt', 'w')
+
+    @nightwriter.write_to_file('hello world', './texts/message.txt')
+
+    assert_equal "hello world\n", @nightwriter.read_file("./texts/message.txt")
+  end
+
   def test_find_matching_letter
     assert_equal 'h', @nightwriter.find_matching_letter_braille_pair('h').letter
     assert_equal '0.00..', @nightwriter.find_matching_letter_braille_pair('h').braille
