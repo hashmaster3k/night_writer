@@ -1,3 +1,4 @@
+require './test/test_helper'
 require './lib/night_reader'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -22,16 +23,26 @@ class NightReaderTest < Minitest::Test
     assert_equal 27, @nightreader.dictionary.length
   end
 
-  def test_decode_from_braille
-    File.delete('./texts/original_message.txt')
-    File.new('./texts/original_message.txt', 'w')
+  def test_decode
+    input_file  = 'nil_1.txt'
+    output_file = 'nil_2.txt'
 
-    hello_world = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0..."
-    @nightreader.stubs(:read_file).returns(hello_world)
+    nightreader = NightReader.new(input_file, output_file)
 
-    @nightreader.decode_from_braille
-    actual = File.read('./texts/original_message.txt').chomp
-    assert_equal "hello world", actual
+    hi = "0..0\n000.\n...."
+
+    nightreader.stubs(:read_file).returns(hi)
+    nightreader.decode
+
+    assert_equal "hi", nightreader.decoded_message
+  end
+
+  def test_num_of_loops
+    hi = "0..0\n000.\n...."
+
+    @nightreader.stubs(:read_file).returns(hi)
+
+    assert_equal 2, @nightreader.num_of_loops
   end
 
   def test_split_file_content
