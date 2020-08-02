@@ -19,48 +19,21 @@ class NightWriterTest < Minitest::Test
   def test_has_readable_attributes
     assert_equal 'message.txt', @nightwriter.input_file
     assert_equal 'braille.txt', @nightwriter.output_file
-    assert_equal './texts/message.txt', @nightwriter.input_file_path
-    assert_equal './texts/braille.txt',  @nightwriter.output_file_path
     assert_equal 27, @nightwriter.dictionary.length
   end
 
   def test_encodes_to_braille
     File.delete('./texts/braille.txt')
     File.new('./texts/braille.txt', 'w')
-
-    before = File.read('./texts/braille.txt')
-
-    assert_equal 0, before.length
-
+    @nightwriter.stubs(:char_array_from_file).returns(['h','i'])
     @nightwriter.encode_to_braille
-
-    after = File.read('./texts/braille.txt')
-
-    assert_equal 69, after.length
-  end
-
-  def test_write_to_file
-    File.delete('./texts/braille.txt')
-    File.new('./texts/braille.txt', 'w')
-
-    before = File.read('./texts/braille.txt')
-
-    assert_equal 0, before.length
-
-    @nightwriter.write_to_file('test')
-
-    after = File.read('./texts/braille.txt')
-
-    assert_equal 5, after.length
+    expected = "0..0\n000.\n....\n"
+    assert_equal expected, @nightwriter.read_file('./texts/braille.txt')
   end
 
   def test_char_array_from_file
-    File.delete('./texts/braille.txt')
-    File.new('./texts/braille.txt', 'w')
-    @nightwriter.write_to_file('hello world')
-
-    number = File.read('./texts/braille.txt').chomp.length
-    assert_equal number, @nightwriter.char_array_from_file.length
+    @nightwriter.stubs(:read_file).returns('hi')
+    assert_equal ['h', 'i'], @nightwriter.char_array_from_file
   end
 
   def test_array_of_words_in_chars
