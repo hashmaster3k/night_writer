@@ -8,8 +8,16 @@ module Helpable
     "./texts/#{output_file}"
   end
 
-  def read_file
-    File.read(input_file_path)
+  def read_file(path)
+    File.read(path)
+  end
+
+  def write_to_file(text, path, direction = :overwrite)
+    if direction == :append
+      File.open(path, 'a') {|file| file.puts text}
+    elsif direction == :overwrite
+      File.open(path, 'w') {|file| file.puts text}
+    end
   end
 
   def find_matching_letter_braille_pair(letter)
@@ -21,7 +29,7 @@ module Helpable
   end
 
   def create_message
-    "Created #{output_file} containing #{read_file.length} characters"
+    "Created #{output_file} containing #{read_file(output_file_path).length} characters"
   end
 
 end

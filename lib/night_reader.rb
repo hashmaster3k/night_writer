@@ -1,8 +1,8 @@
 require './lib/dictionary'
-require './lib/searchable'
+require './lib/helpable'
 
 class NightReader
-  include Searchable
+  include Helpable
 
   attr_reader :input_file, :output_file, :dictionary
 
@@ -13,26 +13,10 @@ class NightReader
     decode_from_braille
   end #initialize
 
-  def input_file_path
-    "./texts/#{@input_file}"
-  end
-
-  def output_file_path
-    "./texts/#{@output_file}"
-  end
-
-  def read_file
-    File.read(input_file_path).split("\n")
-  end
-
-  def write_to_file(text)
-    File.open(output_file_path, 'a') {|file| file.puts text}
-  end
-
   def decode_from_braille
-    row_1 = read_file[0]
-    row_2 = read_file[1]
-    row_3 = read_file[2]
+    row_1 = split_file_content[0]
+    row_2 = split_file_content[1]
+    row_3 = split_file_content[2]
 
     num = row_1.length / 2
     final = ""
@@ -47,16 +31,15 @@ class NightReader
       letter = find_reverse_letter_braille_pair(message).letter
       final.concat(letter)
     end
-    write_to_file(final)
-    puts created_message
+    write_to_file(final, output_file_path)
+    puts create_message
   end
 
-  def created_message
-    content = File.read(output_file_path)
-    "Created #{output_file} containing #{content.length} characters"
-  end #created_message
+  def split_file_content
+    read_file(input_file_path).split("\n")
+  end
 
-end
+end #NightReader
 
-NightReader.new(ARGV[0], ARGV[1])
+#NightReader.new(ARGV[0], ARGV[1])
 #ruby ./lib/night_reader.rb braille.txt original_message.txt
