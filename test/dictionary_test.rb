@@ -1,3 +1,4 @@
+require './test/test_helper'
 require './lib/dictionary'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -22,7 +23,7 @@ class DictionaryTest < Minitest::Test
   def test_can_read_from_CSV
     dictionary = Dictionary.from_csv('./data/braille_dictionary.csv')
 
-    assert_equal 27, dictionary.length
+    assert_equal 32, dictionary.length
   end
 
 end

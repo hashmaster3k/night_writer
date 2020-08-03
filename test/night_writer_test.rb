@@ -1,3 +1,4 @@
+require './test/test_helper'
 require './lib/night_writer'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -19,7 +20,7 @@ class NightWriterTest < Minitest::Test
   def test_has_readable_attributes
     assert_equal 'message.txt', @nightwriter.input_file
     assert_equal 'braille.txt', @nightwriter.output_file
-    assert_equal 27, @nightwriter.dictionary.length
+    assert_equal 32, @nightwriter.dictionary.length
   end
 
   def test_encodes_to_braille
@@ -42,6 +43,17 @@ class NightWriterTest < Minitest::Test
     expected = ["y","o","y","o"].length
 
     assert_equal expected, @nightwriter.array_of_words_in_chars.length
+  end
+
+  def test_create_rows
+    this = [["a", "c", "b", "u", "z", "i"],
+            ["c", "e", "g", "f", "p", "p"],
+            ["p", "t", "i", "x", "e", "r"]]
+    @nightwriter.stubs(:array_of_words_in_chars).returns(this)
+
+    assert_equal "accept", @nightwriter.create_rows[0]
+    assert_equal "bugfix", @nightwriter.create_rows[1]
+    assert_equal "zipper", @nightwriter.create_rows[2]
   end
 
 end
