@@ -21,10 +21,9 @@ class NightReader
   end
 
   def decode
-    row_1 = split_file_content[0]
-    row_2 = split_file_content[1]
-    row_3 = split_file_content[2]
-
+    row_1 = create_row_1
+    row_2 = create_row_2
+    row_3 = create_row_3
     num_of_loops.times do
       message = ""
       message.concat row_1[0] + row_1[1]
@@ -39,14 +38,62 @@ class NightReader
   end
 
   def num_of_loops
-    split_file_content[0].length / 2
+    create_row_1.length / 2
   end
 
   def split_file_content
     read_file(input_file_path).split("\n")
   end
 
+  def get_indices
+    num_list = (0..split_file_content.length - 1).to_a
+
+    r1 = []
+    num_list.each do |num|
+      r1 << num if num == 0 || num == 3 || num == 6 || num == 9 || num == 12
+    end
+
+    r2 = []
+    num_list.each do |num|
+      r2 << num if num == 1 || num == 4 || num == 7 || num == 10 || num == 13
+    end
+
+    r3 = []
+    num_list.each do |num|
+      r3 << num if num == 2 || num == 5 || num == 8 || num == 11 || num == 14
+    end
+
+    return r1, r2, r3
+  end
+
+  def create_row_1
+    row = get_indices[0]
+    string = ""
+    row.each do |num|
+      string.concat split_file_content[num]
+    end
+    string
+  end
+
+  def create_row_2
+    row = get_indices[1]
+    string = ""
+    row.each do |num|
+      string.concat split_file_content[num]
+    end
+    string
+  end
+
+  def create_row_3
+    row = get_indices[2]
+    string = ""
+    row.each do |num|
+      string.concat split_file_content[num]
+    end
+    string
+  end
+
 end #NightReader
 
-#NightReader.new(ARGV[0], ARGV[1])
+NightReader.new(ARGV[0], ARGV[1])
 #ruby ./lib/night_reader.rb braille.txt original_message.txt

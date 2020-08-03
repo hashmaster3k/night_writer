@@ -52,4 +52,21 @@ class NightReaderTest < Minitest::Test
     assert_equal expected, @nightreader.split_file_content
   end
 
+  def test_get_indices
+    @nightreader.stubs(:num_list).returns([0,1,2,3,4,5,6,7,8])
+    expected = [[0,3,6], [1,4,7], [2,5,8]]
+    assert_equal expected, @nightreader.get_indices
+  end
+
+  def test_create_rows
+    this = [[0], [1], [2]]
+    @nightreader.stubs(:get_indices).returns(this)
+
+    hi = "0..0\n000.\n...."
+    @nightreader.stubs(:read_file).returns(hi)
+    assert_equal "0..0", @nightreader.create_row_1
+    assert_equal "000.", @nightreader.create_row_2
+    assert_equal "....", @nightreader.create_row_3
+  end
+
 end
