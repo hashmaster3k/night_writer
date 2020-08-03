@@ -14,9 +14,9 @@ class NightWriter
   end
 
   def encode_to_braille
-    r1 = create_row_1
-    r2 = create_row_2
-    r3 = create_row_3
+    r1 = create_rows[0]
+    r2 = create_rows[1]
+    r3 = create_rows[2]
     until r3 == ""
       write_to_file(r1[0..79], output_file_path, :append)
       r1.slice!(0..79)
@@ -28,28 +28,11 @@ class NightWriter
     puts create_message
   end
 
-  def create_row_1
-    string = ""
-    array_of_words_in_chars.map do |array|
-      string.concat array[0] + array[1]
-    end
-    string
-  end
-
-  def create_row_2
-    string = ""
-    array_of_words_in_chars.map do |array|
-      string.concat array[2] + array[3]
-    end
-    string
-  end
-
-  def create_row_3
-    string = ""
-    array_of_words_in_chars.map do |array|
-      string.concat array[4] + array[5]
-    end
-    string
+  def create_rows
+    row1 = array_of_words_in_chars.map {|array|array[0] + array[1]}.join
+    row2 = array_of_words_in_chars.map {|array|array[2] + array[3]}.join
+    row3 = array_of_words_in_chars.map {|array|array[4] + array[5]}.join
+    return row1, row2, row3
   end
 
   def array_of_words_in_chars
