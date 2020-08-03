@@ -64,6 +64,3 @@ class NightWriter
   end
 
 end #NightWriter
-
-NightWriter.new(ARGV[0], ARGV[1])
-#ruby ./lib/night_writer.rb message.txt braille.txt

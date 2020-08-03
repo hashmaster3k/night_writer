@@ -94,6 +94,3 @@ class NightReader
   end
 
 end #NightReader
-
-NightReader.new(ARGV[0], ARGV[1])
-#ruby ./lib/night_reader.rb braille.txt original_message.txt
