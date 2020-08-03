@@ -43,7 +43,7 @@ class NightWriter
   end
 
   def char_array_from_file
-    read_file(input_file_path).chomp.split("")
+    read_file(input_file_path).chomp.downcase.split("")
   end
 
 end #NightWriter
