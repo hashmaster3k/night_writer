@@ -25,6 +25,7 @@ class NightWriter
       write_to_file(r3[0..79], output_file_path, :append)
       r3.slice!(0..79)
     end
+    puts create_message
   end
 
   def create_row_1
@@ -64,5 +65,5 @@ class NightWriter
 
 end #NightWriter
 
-#NightWriter.new(ARGV[0], ARGV[1])
+NightWriter.new(ARGV[0], ARGV[1])
 #ruby ./lib/night_writer.rb message.txt braille.txt
