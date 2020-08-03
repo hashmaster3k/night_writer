@@ -45,4 +45,15 @@ class NightWriterTest < Minitest::Test
     assert_equal expected, @nightwriter.array_of_words_in_chars.length
   end
 
+  def test_create_rows
+    this = [["a", "c", "b", "u", "z", "i"],
+            ["c", "e", "g", "f", "p", "p"],
+            ["p", "t", "i", "x", "e", "r"]]
+    @nightwriter.stubs(:array_of_words_in_chars).returns(this)
+
+    assert_equal "accept", @nightwriter.create_row_1
+    assert_equal "bugfix", @nightwriter.create_row_2
+    assert_equal "zipper", @nightwriter.create_row_3
+  end
+
 end
