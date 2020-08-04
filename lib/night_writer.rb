@@ -25,7 +25,6 @@ class NightWriter
       write_to_file(r3[0..79], output_file_path, :append)
       r3.slice!(0..79)
     end
-    puts create_message
   end
 
   def create_rows

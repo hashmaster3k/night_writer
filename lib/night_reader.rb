@@ -15,7 +15,6 @@ class NightReader
 
   def decode_from_braille
     write_to_file(decode_message, output_file_path)
-    puts create_message
   end
 
   def decode_message

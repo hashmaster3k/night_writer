@@ -47,13 +47,4 @@ class HelpableTest < Minitest::Test
     assert_equal 'h', @nightwriter.find_reverse_letter_braille_pair('0.00..').letter
   end
 
-  def test_created_message
-    @nightwriter.stubs(:output_file).returns('greeting.txt')
-    @nightwriter.stubs(:read_file).returns('hello')
-
-    expected = "Created greeting.txt containing 5 characters"
-
-    assert_equal expected, @nightwriter.create_message
-  end
-
 end

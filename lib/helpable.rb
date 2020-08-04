@@ -28,8 +28,4 @@ module Helpable
     @dictionary.find {|letter_obj| letter_obj.braille == braille_letter}
   end
 
-  def create_message
-    "Created #{output_file} containing #{read_file(output_file_path).length} characters"
-  end
-
 end
