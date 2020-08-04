@@ -23,7 +23,7 @@ class DictionaryTest < Minitest::Test
   def test_can_read_from_CSV
     dictionary = Dictionary.from_csv('./data/braille_dictionary.csv')
 
-    assert_equal 32, dictionary.length
+    assert_equal 33, dictionary.length
   end
 
 end

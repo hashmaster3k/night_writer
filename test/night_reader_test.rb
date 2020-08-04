@@ -20,7 +20,7 @@ class NightReaderTest < Minitest::Test
   def test_has_readable_attributes
     assert_equal 'braille.txt', @nightreader.input_file
     assert_equal 'original_message.txt', @nightreader.output_file
-    assert_equal 32, @nightreader.dictionary.length
+    assert_equal 33, @nightreader.dictionary.length
   end
 
   def test_decode_message
